@@ -12,6 +12,32 @@ import {
     WebDAVMethodOptions
 } from "./types";
 
+// uni-app axios 适配
+declare const uni: any
+
+axios.defaults.adapter = function (config) {
+    return new Promise((resolve, reject) => {
+        var settle = require('axios/lib/core/settle');
+        uni.request({
+            method: config.method.toUpperCase(),
+            url: config.url,
+            header: config.headers,
+            data: config.data,
+            responseType: config.responseType,
+            complete: function complete(response) {
+                response = {
+                    data: response.data,
+                    status: response.statusCode,
+                    errMsg: response.errMsg,
+                    header: response.header,
+                    config: config
+                };
+                settle(resolve, reject, response);
+            }
+        })
+    })
+}
+
 function _request(requestOptions: RequestOptions) {
     return getPatcher().patchInline(
         "request",

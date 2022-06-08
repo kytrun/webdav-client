@@ -6,6 +6,7 @@
   "scripts": {
     "build": "npm run clean && run-p build:node build:web",
     "build:node": "tsc",
+    "build:uniapp": "webpack --mode production --config webpack-uniapp.config.js && tsc --emitDeclarationOnly --outDir dist/uniapp/",
     "build:web": "webpack --mode production --config webpack.config.js && tsc --emitDeclarationOnly --outDir dist/web/",
     "clean": "rimraf dist web",
     "dev": "nodemon -e ts,js --exec 'npm run build' --ignore 'dist/' --ignore 'web/'",
