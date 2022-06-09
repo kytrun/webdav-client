@@ -1,5 +1,34 @@
 # **⚠️A fork for [uni-app](https://uniapp.dcloud.io/), unstable.**
 
+## Fork 自 [webdav-client](https://github.com/perry-mitchell/webdav-client)，添加了 uni.request 作为 axios adaper，目前基本可用，没有测试全部功能。需要注意的是坚果云提供的 WebDAV 并非标准的 WebDAV，部分接口有问题可能在其他服务上表现正常。
+
+**下载 /dist/uniapp/webdav.js ，在 uni-app 项目中以 ES module 导入使用。**
+
+坚果云 WebDAV 示例:
+
+```javascript
+import {
+	AuthType,
+	createClient
+} from "@/deps/webdav"
+
+
+const client = createClient(
+	"https://dav.jianguoyun.com/dav/test/", {
+		authType: AuthType.Password,
+		username: `${username}`,
+		password: `${password}`
+	})
+    
+client.getFileContents("test.txt", {
+		format: "text"
+	})
+	.then(data => console.log(data))
+	.catch(e => console.log(e))
+```
+
+其余接口见下方文档。
+
 ![WebDAV](https://raw.githubusercontent.com/perry-mitchell/webdav-client/master/webdav.jpg)
 
 > A WebDAV client, written in Typescript, for NodeJS and the browser
