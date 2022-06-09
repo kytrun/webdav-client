@@ -6,5 +6,8 @@
 test.js
 node_modules
 test/testContents
-/dist
 /web
+/dist/web/
+/dist/node/
+/dist/uniapp/*
+!/dist/uniapp/webdav.js
